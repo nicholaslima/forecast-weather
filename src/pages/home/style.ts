@@ -37,7 +37,7 @@ export const Container = styled.div`
         justify-content: space-around;
         background-color: white;
         border-radius: 7px;
-        margin-top: 7px;
+        margin-bottom: 10px;
         padding: 20px;
     }
 

@@ -1,18 +1,17 @@
 import React,{ useEffect,useState  } from 'react';
 import { useRouteMatch} from 'react-router-dom';
 import { Container } from './style';
+import { FiCloudRain,FiCloudSnow,FiDroplet,FiUmbrella,FiSun } from 'react-icons/fi';
 
 interface paramsType { 
     city: string;
 }
 
 
-interface descritionType{
-    description: string
-}
+
 
 interface weatherType{
-    descriptions: Array<descritionType>;
+    descriptions: string[];
     humidity: string;
     temperature: number;
     temperature_max: number;
@@ -51,6 +50,7 @@ const City:React.FC = () => {
             weather.name === params.city
         );
 
+        console.log(found);
         setWeather(found);
     },[setWeather,params.city]);
 
@@ -62,14 +62,20 @@ const City:React.FC = () => {
         <Container>
             <header>
                 <h1>{ params.city }</h1>
-                <div className="date">
-                    <p>Data:</p> 
-                    <p>{ dateFormated }</p>
+                <div className="list">
+                    <div className="item">
+                        <FiSun color="#F0DD32" size="51"></FiSun>
+                    </div>
+                    <div className="item">
+                        <p className="title">Data</p> 
+                        <p>{ dateFormated }</p>
+                    </div>
+                    <div className="item">
+                        <p className="title">condições climáticas</p> 
+                        <p>chuva</p>
+                    </div>
                 </div>
-                <div className="date">
-                    <p>condições climática:</p> 
-                    <p>{ dateFormated }</p>
-                </div>
+                
             </header>
             
             <div className="detalhes">
@@ -95,17 +101,19 @@ const City:React.FC = () => {
             </div>
             <ul>
                 <div className="header-table">
+                    <div>data</div>
+                    <div>condições climáticas</div>
                     <div>temperatura</div>
                     <div>humidade</div>
-                    <div>data</div>
                 </div>
                 { weatherCity.weather === undefined ? 
                        ( <p>não existem previsões para esta cidade</p> ) 
                  : weatherCity.weather.map( (item:weatherType) => (
                     <li>
+                        <div>{ item.date }</div>
+                        <div>{ item.descriptions  }</div>
                         <div>{ item.temperature }</div>
                         <div>{ item.humidity }</div>
-                        <div>{ item.date }</div>
                     </li>
                 ))}
                 

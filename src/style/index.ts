@@ -16,10 +16,9 @@ export default createGlobalStyle`
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-        margin-bottom: 22px;
         margin-top: 15px;
-        background-color: #3a3a3a;
-        border-radius: 7px;
+        background-image: linear-gradient(to right, #159AF9,#5FD5F3);
+        border-radius: 7px 7px 0px 0px;
         padding: 15px;
         div{
             font-size: 20px;
