@@ -1,26 +1,25 @@
 
 
-import React,{ useState,useRef, useEffect } from 'react';
+import React,{ useState,useRef } from 'react';
 import { Container } from './style';
 import { Link } from 'react-router-dom';
 import api from '../../service/api';
 import Message,{ refMessage } from '../../components/message';
-import { FiCloudRain,
-    FiCloudSnow,
+
+import {
     FiDroplet,
     FiSun,
     FiArrowRight,
     FiRefreshCw,
     FiCloud,
-    FiCloudLightning,
-    FiCloudDrizzle
+    FiCloudOff
 } from 'react-icons/fi';
 
 
 
 
 interface weatherType{
-    description: 'broken clouds' | 'overcast clouds' | 'clear Sky';
+    description: 'broken clouds' | 'overcast clouds' | 'clear sky' | 'scattered clouds';
     humidity: string;
     temperature: string;
     temperature_max: string;
@@ -65,30 +64,11 @@ const Home: React.FC = () => {
     const messageRef = useRef<refMessage>(null);
 
     async function buscar(){
-        const regex = /\w*,\w{2}$/;
-        const validation = regex.test(cidade);
+        const cityVality = validationCity();
+        const ExistCity = cityExist();
 
-        if(!validation){
-            setMessage('digite o nome da cidade sem acento, sigla do pais');
-            messageRef.current?.ativar();
-            messageRef.current?.closeMessage();
-            setCidade('');
-            return;
-        }
-
-        const [city,] = cidade.split(',');
-
-        const cityExist = ForecastList.find( forecast => {
-            const cityConverted = removeAcento(forecast.name);
-            return cityConverted === city
-        });
-
-        if(cityExist){
-            setMessage('esta cidade já existe na sua lista');
-            messageRef.current?.ativar();
-            messageRef.current?.closeMessage();
-            setCidade('');
-            return;
+        if(cityVality === false || ExistCity === false){
+            return false;
         }
 
         try{ 
@@ -99,52 +79,108 @@ const Home: React.FC = () => {
                  },
 
              }).then(response => {
-
-                const description = response.data.weather[0].description;
-                const { name } = response.data;
-                const { lon,lat} = response.data.coord;
-                const { speed,deg } = response.data.wind;
-                const { country } = response.data.sys;
-                const { temp,temp_max,temp_min,humidity } = response.data.main;
-
-                const currentyDate =  new Date();
-                const currentyDateFormated = new Intl.DateTimeFormat('pt-br').format(currentyDate);
-                const hour = currentyDate.getHours();
-
-                
-                const weatherItem = {
-                    description,
-                    humidity,
-                    temperature: convertToCelsius(temp),
-                    temperature_max: convertToCelsius(temp_max),
-                    temperature_min: convertToCelsius(temp_min),
-                    date: currentyDateFormated,
-                    hour,
-                    wind: {
-                        deg,
-                        speed,
-                    }
-                }
-
-                const city: cityType = {
-                    name,
-                    country,
-                    latitude: lat,
-                    longitude: lon,
-                    weather: weatherItem
-                }
+                const datas = response.data;
+                const city = captureData(datas);
                 const list = [ ...ForecastList,city];
                 setForecast(list);
                 setCidade('');
                 localStorage.setItem(`@ForeCastApp:weather`,JSON.stringify(list));
              });
-
         } catch(err){
             setMessage('erro tente novamente');
             messageRef.current?.ativar();
             messageRef.current?.closeMessage();
             setCidade('');
         }
+    }
+
+    function captureData(datas: any){
+
+        const description = datas.weather[0].description;
+        const { name } = datas;
+        const { lon,lat} = datas.coord;
+        const { speed,deg } = datas.wind;
+        const { country } = datas.sys;
+        const { temp,temp_max,temp_min,humidity } = datas.main;
+
+        const currentyDate =  new Date();
+        const currentyDateFormated = new Intl.DateTimeFormat('pt-br').format(currentyDate);
+        const hour = currentyDate.getHours();
+
+                
+        const weatherItem = {
+                description,
+                humidity,
+                temperature: convertToCelsius(temp),
+                temperature_max: convertToCelsius(temp_max),
+                temperature_min: convertToCelsius(temp_min),
+                date: currentyDateFormated,
+                hour,
+                wind: {
+                    deg,
+                    speed,
+                }
+            }
+
+        const city: cityType = {
+            name,
+            country,
+            latitude: lat,
+            longitude: lon,
+            weather: weatherItem
+        }
+
+        return city;
+    }
+
+    function cityExist(){
+        const [city,] = cidade.split(',');
+        const cityWithoutAccents = removeAcento(city);
+
+        const cityExist = ForecastList.find( forecast => {
+            const cityConverted = removeAcento(forecast.name);
+            return cityConverted === cityWithoutAccents;
+        });
+
+        if(cityExist){
+            setMessage('esta cidade já existe na sua lista');
+            messageRef.current?.ativar();
+            messageRef.current?.closeMessage();
+            setCidade('');
+            return false;
+        }
+        return true;
+    }
+
+    async function updateCity(city: string){
+        const response = await api.get(`/weather?q=${ city }`,{
+            headers:{ 
+                "x-rapidapi-key": "e257bac6d4msh21e07a47b5b0f42p16acb9jsn8d167ba3a5d6",
+            },
+        });
+
+       const data = await response.data;
+       const newCity = captureData(data);
+
+       const index = ForecastList.findIndex( forecast => forecast.name === city);
+
+       ForecastList[index] = newCity;
+       setForecast([...ForecastList]);
+    }
+
+    function validationCity(){
+        const regex = /\w*,\w{2}$/;
+        const validation = regex.test(cidade);
+
+        if(!validation){
+            setMessage('digite o nome da cidade sem acento, sigla do pais');
+            messageRef.current?.ativar();
+            messageRef.current?.closeMessage();
+            setCidade('');
+            return false;
+        }
+
+        return true
     }
 
 
@@ -171,10 +207,10 @@ const Home: React.FC = () => {
     const iconWheather = {
         'broken clouds': <FiCloud color="#0077b6" size="50"></FiCloud>,
         'overcast clouds': <FiCloud color="#3f88c5" size="50"></FiCloud>,
-        'clear Sky': <FiSun color="#fee440" size="80"></FiSun>,
+        'clear sky': <FiSun color="#fee440" size="50"></FiSun>,
         'light rain': <FiDroplet color="#3f88c5" size="50"></FiDroplet>,
+        'scattered clouds': <FiCloudOff color="#3f88c5" size="50"></FiCloudOff>
     }
-
 
 
     return(
@@ -191,7 +227,7 @@ const Home: React.FC = () => {
             <ul>
                 { ForecastList.map( forecast => (
                     <li key={ forecast.name }>
-                        <FiRefreshCw color="#8257E5" style={{ float: 'right' }}></FiRefreshCw>
+                        <FiRefreshCw onClick={ () => updateCity(forecast.name) } className="buttonRefresh" ></FiRefreshCw>
                         <div className="header-weather">
                             <div className="cidade">{  forecast.name  } </div>
                             <div>{ forecast.country }</div>

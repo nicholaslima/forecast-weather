@@ -14,6 +14,12 @@ export const Container = styled.div`
         
     }
 
+    .buttonRefresh{
+        color: #8257E5;
+        float: right;
+        cursor: pointer;
+    }
+
     header{
         margin-top: 50px;
         margin-bottom: 15px;
