@@ -58,7 +58,6 @@ export default createGlobalStyle`
         font-size: 40px;
         font-family: Roboto;
         font-weight: 700;
-        margin: 0 auto;
         margin-top: 30px;
         margin-bottom: 30px;
     }

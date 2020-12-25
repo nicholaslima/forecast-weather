@@ -15,8 +15,8 @@ export const Container = styled.div<messageType>`
     `}
 
     div{ 
-        background-color: #c53030;
-        padding: 5px 10px;
+        background-color: #e63946;
+        padding: 20px;
         border-radius: 5px;
         color: white;
         font-family: Nunito;

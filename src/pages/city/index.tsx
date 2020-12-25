@@ -1,7 +1,7 @@
 import React,{ useEffect,useState  } from 'react';
-import { useRouteMatch} from 'react-router-dom';
+import { useRouteMatch ,Link} from 'react-router-dom';
 import { Container } from './style';
-import { FiCloudRain,FiCloudSnow,FiDroplet,FiUmbrella,FiSun } from 'react-icons/fi';
+import { FiCloudRain,FiCloudSnow,FiDroplet,FiUmbrella,FiSun,FiArrowLeft } from 'react-icons/fi';
 
 interface paramsType { 
     city: string;
@@ -33,9 +33,16 @@ interface cityType{
     weather: Array<weatherType>;
 }
 
+interface weathersByDate{
+    date: Object;
+    weathers: weatherType[];
+}
+
 const City:React.FC = () => {
     const { params } = useRouteMatch<paramsType>();
     const  [ weatherCity,setWeather ] = useState<cityType>({} as cityType);
+    const [ weathersDay,setWeathersDay ] = useState<weatherType[]>([]);
+    const [ weathersByDay,setWeathersByday ] =  useState<weathersByDate[]>([]);
 
     useEffect(() => {
         const weathers = localStorage.getItem('@ForeCastApp:weather');
@@ -49,19 +56,35 @@ const City:React.FC = () => {
         const found = list.find( (weather:cityType) => 
             weather.name === params.city
         );
-
-        console.log(found);
         setWeather(found);
+
+
+
     },[setWeather,params.city]);
+
+    
 
     const date = new Date();
 
     const dateFormated = new Intl.DateTimeFormat('pt-br').format(date);
 
+    function findWeatherByDate(){
+        const listweather = weatherCity.weather.filter( item => {
+            const dateParsed = new Date(item.date);
+            const atual = new Intl.DateTimeFormat('pt-br').format(dateParsed);
+            return atual === dateFormated;
+        });
+        setWeathersDay(listweather);
+    } 
+
     return(
         <Container>
-            <header>
-                <h1>{ params.city }</h1>
+                <header>
+                    <h1>{ params.city }</h1>
+                    <Link to="/" className="btn">
+                        <FiArrowLeft color="#fff" size="20"></FiArrowLeft>
+                    </Link>
+                </header>
                 <div className="list">
                     <div className="item">
                         <FiSun color="#F0DD32" size="51"></FiSun>
@@ -76,7 +99,7 @@ const City:React.FC = () => {
                     </div>
                 </div>
                 
-            </header>
+
             
             <div className="detalhes">
                 <div className="item">

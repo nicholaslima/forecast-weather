@@ -2,8 +2,20 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-
     header{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        .btn{
+            background-image: linear-gradient(to right,#159AF9,#5FD5F3);
+            border-radius: 7px 7px 7px 15px;
+            padding: 13px 20px;
+            cursor: pointer;
+        }
+    }
+
         .list{
             display: flex;
             flex-direction: row;   
@@ -21,7 +33,7 @@ export const Container = styled.div`
                 }
             }
         }
-    }
+
     .detalhes{
         display: flex;
         flex-direction: row;
