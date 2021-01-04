@@ -61,7 +61,7 @@ const Home: React.FC = () => {
     const [ ForecastList ,setForecast ] = useState<cityCurrentType[]>(() => {
 
        const weathers = localStorage.getItem(`@ForeCastApp:weather`);
-        console.log(weathers);
+
        if(weathers){
            return JSON.parse(weathers);
        }
@@ -97,7 +97,7 @@ const Home: React.FC = () => {
                 const list = [ ...ForecastList,city];
                 setForecast(list);
                 setCidade('');
-                localStorage.setItem(`@ForeCastApp:weather`,JSON.stringify(list));
+                saveLocalStorage(list);
              });
         } catch(err){
             setMessage('erro tente novamente');
@@ -177,9 +177,15 @@ const Home: React.FC = () => {
        const newCity = captureData(data);
 
        const index = ForecastList.findIndex( forecast => forecast.name === city);
-        console.log(newCity);
        ForecastList[index] = newCity;
        setForecast([...ForecastList]);
+
+       saveLocalStorage(ForecastList);
+    }
+
+    function saveLocalStorage(list: Object[]){
+        const listString = JSON.stringify(list);
+        localStorage.setItem('@ForeCastApp:weather',listString);
     }
 
     function validationCity(){
