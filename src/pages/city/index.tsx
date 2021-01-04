@@ -2,8 +2,19 @@ import React,{ useEffect,useState  } from 'react';
 import { useRouteMatch ,Link} from 'react-router-dom';
 import { Container } from './style';
 import api from '../../service/api';
+import { weatherCurrentType,cityCurrentType,iconWheather } from '../home';
 
-import { FiSun,FiArrowLeft } from 'react-icons/fi';
+import {
+    FiDroplet,
+    FiSun,
+    FiArrowRight,
+    FiRefreshCw,
+    FiArrowLeft,
+    FiCloud,
+    FiCloudOff,
+    FiCloudRain,
+} from 'react-icons/fi';
+
 
 interface paramsType { 
     city: string;
@@ -28,7 +39,7 @@ interface cityType{
     id: string;
     lat: string;
     lon: string;
-    population: number;
+    population: string;
     country: string;
     weathersDate: Array<weathersByDate>;
 }
@@ -42,13 +53,10 @@ const City:React.FC = () => {
     const { params } = useRouteMatch<paramsType>();
     const [ cityDatas,setCityDatas ] = useState<cityType>({} as cityType);
     const [ weatherdates,setWeatherDates ] = useState<weathersByDate[]>([] as weathersByDate[]);
-    const [ currentWeather, setCurrentWeather ] = useState<weatherType>({} as weatherType);
+    const [ currentWeather, setCurrentWeather ] = useState<cityCurrentType>({} as cityCurrentType);
         
     
     const date = new Date();
-    const hour = date.getHours();
-
-    const hourString = String(hour);
     const dateFormated = new Intl.DateTimeFormat('pt-br').format(date);
 
     useEffect( () => {
@@ -58,30 +66,11 @@ const City:React.FC = () => {
                 }
             }).then(response => {
                 const datas = response.data;
-                const city:cityType = formatDatas(datas);  
-                findWeatherFromDate(city);
+                formatDatas(datas);  
+                findCurrentWeather();
             });
     },[params.city]);
 
-    function findWeatherFromDate(city: cityType){
-        const found = city.weathersDate.find( item => {
-            return item.date === dateFormated;
-        });
-
-        if(!found){
-            return;
-        };
-
-        const weather = found.weathers.find( item => {
-            return item.hour === hourString;
-        });
-
-        if(!weather){
-            return;
-        }
-        console.log(found);
-        setCurrentWeather(weather);
-    }
     
 
     function formatDatas(datas: any){
@@ -104,7 +93,7 @@ const City:React.FC = () => {
             const minutes = dateConverted.getMinutes();
 
             const dateFormated = Intl.DateTimeFormat('pt-br').format(dateConverted);
-        
+            
                     
             return { 
                 hour,
@@ -121,12 +110,30 @@ const City:React.FC = () => {
                 deg 
             }
         });
+        const populationFormated =  Intl.NumberFormat('pt-br').format(population);
+        
 
-        const city: any  = { name,population,country,id,lat,lon,weathers  } 
+        const city: any  = { 
+            name,
+            population: populationFormated,
+            country,
+            id,
+            lat,
+            lon,
+            weathers  
+        }; 
 
         const weathersDate = listByDate(city);
 
-        const newcity: cityType = { name,population,country,id,lat,lon,weathersDate }
+        const newcity: cityType = { 
+            name,
+            population:populationFormated,
+            country,
+            id,
+            lat,
+            lon,
+            weathersDate 
+        }
  
         setCityDatas(newcity);
 
@@ -165,13 +172,28 @@ const City:React.FC = () => {
                 weathers: list
             }
         })
-
+        console.log(weatherdates);
         setWeatherDates(weatherdates);
 
         return weatherdates;
     }
 
+    function findCurrentWeather(){
+        const listCurrentWeatherString = localStorage.getItem('@ForeCastApp:weather');
 
+        if(!listCurrentWeatherString){
+            return;
+        }
+                
+        const listCurrentWeather = JSON.parse(listCurrentWeatherString);
+                
+        const cityCurrentWeather = listCurrentWeather.find( (item:any) => {
+            return item.name ===  params.city;
+        });
+
+        console.log(cityCurrentWeather);
+        setCurrentWeather(cityCurrentWeather);
+    }
 
 
     return(
@@ -184,7 +206,9 @@ const City:React.FC = () => {
                 </header>
                 <div className="list">
                     <div className="item">
-                        <FiSun color="#F0DD32" size="51"></FiSun>
+                        {  
+                            currentWeather.weather &&   iconWheather[ currentWeather.weather.description ]
+                        }
                     </div>
                     <div className="item">
                         <p className="title">Data</p> 
@@ -192,7 +216,7 @@ const City:React.FC = () => {
                     </div>
                     <div className="item">
                         <p className="title">condições climáticas</p> 
-                        <p>{ currentWeather.description }</p>
+                        <p>{ currentWeather.weather && currentWeather.weather.description  }</p>
                     </div>
                 </div>
                 

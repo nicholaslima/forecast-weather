@@ -13,6 +13,7 @@ export const Container = styled.div`
             border-radius: 7px 7px 7px 15px;
             padding: 13px 20px;
             cursor: pointer;
+            box-shadow: 4px 4px 15px #6C6C80;
         }
     }
 

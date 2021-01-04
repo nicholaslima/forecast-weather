@@ -19,7 +19,7 @@ import {
 
 
 
-interface weatherType{
+ export interface weatherCurrentType{
     description: 'broken clouds' | 'overcast clouds' | 'clear sky' | 'scattered clouds' | 'few clouds' | 'shower rain' | 'heavy intensity rain' | 'moderate rain';
     humidity: string;
     temperature: string;
@@ -33,21 +33,32 @@ interface weatherType{
     }
 }
 
-interface cityType{
+export interface cityCurrentType{
     name: string;
     latitude: string;
     longitude: string;
     country: string;
-    weather: weatherType;
+    weather: weatherCurrentType;
 }
 
+export const iconWheather = {
+    'broken clouds': <FiCloud color="#0077b6" size="50"></FiCloud>,
+    'overcast clouds': <FiCloud color="#3f88c5" size="50"></FiCloud>,
+    'clear sky': <FiSun color="#fee440" size="50"></FiSun>,
+    'light rain': <FiDroplet color="#a8dadc" size="50"></FiDroplet>,
+    'scattered clouds': <FiCloudOff color="#3f88c5" size="50"></FiCloudOff>,
+    'few clouds': <FiCloudOff color="#a8dadc" size="50"></FiCloudOff>,
+    'shower rain': <FiDroplet color="#a8dadc" size="50"></FiDroplet>,
+    'heavy intensity rain': <FiCloudRain color="#3f88c5" size="50"></FiCloudRain>,
+    'moderate rain': <FiCloudRain color="#a8dadc" size="50"></FiCloudRain>,
+}
 
 
 
 const Home: React.FC = () => {
     const [ cidade,setCidade ] = useState('');
     const [ message ,setMessage ] = useState('');
-    const [ ForecastList ,setForecast ] = useState<cityType[]>(() => {
+    const [ ForecastList ,setForecast ] = useState<cityCurrentType[]>(() => {
 
        const weathers = localStorage.getItem(`@ForeCastApp:weather`);
         console.log(weathers);
@@ -55,7 +66,7 @@ const Home: React.FC = () => {
            return JSON.parse(weathers);
        }
 
-       return [] as Array<weatherType>;
+       return [] as Array<weatherCurrentType>;
     }); 
 
 
@@ -125,7 +136,7 @@ const Home: React.FC = () => {
                 }
             }
 
-        const city: cityType = {
+        const city: cityCurrentType = {
             name,
             country,
             latitude: lat,
@@ -207,17 +218,7 @@ const Home: React.FC = () => {
         return fomated;
     }
 
-    const iconWheather = {
-        'broken clouds': <FiCloud color="#0077b6" size="50"></FiCloud>,
-        'overcast clouds': <FiCloud color="#3f88c5" size="50"></FiCloud>,
-        'clear sky': <FiSun color="#fee440" size="50"></FiSun>,
-        'light rain': <FiDroplet color="#a8dadc" size="50"></FiDroplet>,
-        'scattered clouds': <FiCloudOff color="#3f88c5" size="50"></FiCloudOff>,
-        'few clouds': <FiCloudOff color="#a8dadc" size="50"></FiCloudOff>,
-        'shower rain': <FiDroplet color="#a8dadc" size="50"></FiDroplet>,
-        'heavy intensity rain': <FiCloudRain color="#3f88c5" size="50"></FiCloudRain>,
-        'moderate rain': <FiCloudRain color="#a8dadc" size="50"></FiCloudRain>,
-    }
+    
 
 
     return(
