@@ -1,6 +1,6 @@
 
 
-import React,{ useEffect,useState,forwardRef,useImperativeHandle } from 'react';
+import React,{ useState,forwardRef,useImperativeHandle } from 'react';
 import {  Container } from './style';
 
 

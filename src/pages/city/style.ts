@@ -69,4 +69,38 @@ export const Container = styled.div`
         margin-bottom: 10px;
     }
 
+    .listWheather{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .headerWheaters{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 15px;
+            .titleItem{
+                color: #8257E5;
+                margin-bottom: 10px;
+                text-transform: capitalize;
+                font-size: 16px;
+                text-align: center;
+                width: 150px;
+            }
+        }
+
+        .itemWheather{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .valueItem{
+                text-align: center;
+                width: 150px;
+                font-family: Nunito;
+                margin-top: 12px;
+                font-weight: 200;
+            }
+        }
+    }
 `;

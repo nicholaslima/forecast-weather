@@ -12,14 +12,15 @@ import {
     FiArrowRight,
     FiRefreshCw,
     FiCloud,
-    FiCloudOff
+    FiCloudOff,
+    FiCloudRain,
 } from 'react-icons/fi';
 
 
 
 
 interface weatherType{
-    description: 'broken clouds' | 'overcast clouds' | 'clear sky' | 'scattered clouds';
+    description: 'broken clouds' | 'overcast clouds' | 'clear sky' | 'scattered clouds' | 'few clouds' | 'shower rain' | 'heavy intensity rain' | 'moderate rain';
     humidity: string;
     temperature: string;
     temperature_max: string;
@@ -49,7 +50,7 @@ const Home: React.FC = () => {
     const [ ForecastList ,setForecast ] = useState<cityType[]>(() => {
 
        const weathers = localStorage.getItem(`@ForeCastApp:weather`);
-
+        console.log(weathers);
        if(weathers){
            return JSON.parse(weathers);
        }
@@ -80,6 +81,7 @@ const Home: React.FC = () => {
 
              }).then(response => {
                 const datas = response.data;
+                console.log(datas);
                 const city = captureData(datas);
                 const list = [ ...ForecastList,city];
                 setForecast(list);
@@ -90,6 +92,7 @@ const Home: React.FC = () => {
             setMessage('erro tente novamente');
             messageRef.current?.ativar();
             messageRef.current?.closeMessage();
+            console.log(err);
             setCidade('');
         }
     }
@@ -152,8 +155,8 @@ const Home: React.FC = () => {
         return true;
     }
 
-    async function updateCity(city: string){
-        const response = await api.get(`/weather?q=${ city }`,{
+    async function updateCity(city: string,pais: string){
+        const response = await api.get(`/weather?q=${ city },${ pais }`,{
             headers:{ 
                 "x-rapidapi-key": "e257bac6d4msh21e07a47b5b0f42p16acb9jsn8d167ba3a5d6",
             },
@@ -163,7 +166,7 @@ const Home: React.FC = () => {
        const newCity = captureData(data);
 
        const index = ForecastList.findIndex( forecast => forecast.name === city);
-
+        console.log(newCity);
        ForecastList[index] = newCity;
        setForecast([...ForecastList]);
     }
@@ -208,8 +211,12 @@ const Home: React.FC = () => {
         'broken clouds': <FiCloud color="#0077b6" size="50"></FiCloud>,
         'overcast clouds': <FiCloud color="#3f88c5" size="50"></FiCloud>,
         'clear sky': <FiSun color="#fee440" size="50"></FiSun>,
-        'light rain': <FiDroplet color="#3f88c5" size="50"></FiDroplet>,
-        'scattered clouds': <FiCloudOff color="#3f88c5" size="50"></FiCloudOff>
+        'light rain': <FiDroplet color="#a8dadc" size="50"></FiDroplet>,
+        'scattered clouds': <FiCloudOff color="#3f88c5" size="50"></FiCloudOff>,
+        'few clouds': <FiCloudOff color="#a8dadc" size="50"></FiCloudOff>,
+        'shower rain': <FiDroplet color="#a8dadc" size="50"></FiDroplet>,
+        'heavy intensity rain': <FiCloudRain color="#3f88c5" size="50"></FiCloudRain>,
+        'moderate rain': <FiCloudRain color="#a8dadc" size="50"></FiCloudRain>,
     }
 
 
@@ -227,7 +234,7 @@ const Home: React.FC = () => {
             <ul>
                 { ForecastList.map( forecast => (
                     <li key={ forecast.name }>
-                        <FiRefreshCw onClick={ () => updateCity(forecast.name) } className="buttonRefresh" ></FiRefreshCw>
+                        <FiRefreshCw onClick={ () => updateCity(forecast.name,forecast.country) } className="buttonRefresh" ></FiRefreshCw>
                         <div className="header-weather">
                             <div className="cidade">{  forecast.name  } </div>
                             <div>{ forecast.country }</div>
