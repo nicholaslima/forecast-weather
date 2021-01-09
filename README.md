@@ -1,5 +1,5 @@
 
-<img src="https://img.shields.io/static/v1?label=log&message=forecast weather&color=7159c1&style=for-the-badge&logo=ghost"/>
+<img src="https://img.shields.io/static/v1?label=log&message=forecastweather&color=7159c1&style=for-the-badge&logo=ghost"/>
 <h1 align="center">Forecast Weather</h1>
 
 # Description
@@ -84,11 +84,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ### Autor
 ---
-
-<a href="https://blog.rocketseat.com.br/author/thiago/">
- <img style="border-radius: 50%;" src="https://avatars3.githubusercontent.com/u/380327?s=460&u=61b426b901b8fe02e12019b1fdb67bf0072d4f00&v=4" width="100px;" alt=""/>
- <br />
- <sub><b>Thiago Marinho</b></sub></a> <a href="https://blog.rocketseat.com.br/author/thiago//" title="Rocketseat">🚀</a>
  
  Feito com ❤️ por Nicholas Lima 👋🏽 Entre em contato!
 
