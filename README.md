@@ -56,7 +56,7 @@ $ git clone <https://github.com/nicholaslima>
 $ cd previsão
 
 # configure as variaveis e ambiente .env
-vá para o link  se cadastre e peguei a chave de acesso da api X-RapidAPI-Key e cole no .env
+# vá para o link  se cadastre e peguei a chave de acesso da api X-RapidAPI-Key e cole no .env
 $ APIKEY: your key
 
 https://rapidapi.com/community/api/open-weather-map
@@ -68,7 +68,7 @@ $ yarn start
 
 # O servidor inciará na porta:3000 - acesse <http://localhost:3000>
 
-
+```  
 
  
 ### 🛠 Tecnologias
