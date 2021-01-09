@@ -41,7 +41,7 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 
 
-## 🎲 como usar
+### 🎲 como usar
 ```bash
 # Clone este repositório
 $ git clone <https://github.com/nicholaslima>
@@ -77,7 +77,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 
 ### Autor
----
  
  Feito com ❤️ por Nicholas Lima 👋🏽 Entre em contato!
 
@@ -85,6 +84,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Linkedin](https://www.linkedin.com/in/nicholas-lima-a360311bb/)
 
 
-## 📝 Licença
+### 📝 Licença
 
 Este projeto esta sobe a licença [MIT](./LICENSE).
