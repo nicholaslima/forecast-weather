@@ -4,20 +4,11 @@ This project is a application that consumes api of wheather Forecast of the city
 .
 ## Available Scripts
 
-    Clone this repo using https://github.com/jpedroschmitz/gobarber.git
-    Move to the appropriate directory: cd gobarber.
+    Clone this repo using https://github.com/nicholaslima/forecast-weather/
+    Move to the appropriate directory: cd previsao.
     Run yarn to install dependencies.
     Run yarn start to see the example app at http://localhost:3000.
 
-
-
-
-### consumes API
-
-    First go to reapidAPi Developers API and create your token. Then add your token on src/Spotify.js. Remember that the token will expire in 60min
-    Once you have the token you can clone this repository.
-    Then on the project folder run npm install or yarn to get all the dependencies.
-    Use npm start to get the server running on http://localhost:8080/.
    
  ### features
  
