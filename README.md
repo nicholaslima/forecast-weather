@@ -9,12 +9,12 @@ Este projeto é um aplicativo que consome api de previsão do tempo da cidade qu
 Tabela de conteúdos
 =================
 <!--ts-->
-   * [funcionalidade](#-funcionalidade)
-   * [Pre Requisitos](#-pre-requisitos)
+   * [funcionalidade](#funcionalidade)
+   * [Pre Requisitos](#-Pré-requisitos)
    * [como usar](#-como-usar)
    * [Tecnologias](#-tecnologias)
-   * [Autor](#autor)
-   * [Licença](#Licença)
+   * [Autor](#-autor)
+   * [Licença](#-licenca)
 <!--te-->
 
 <h3>Status</h3>
