@@ -12,7 +12,7 @@ Tabela de conteúdos
    * [funcionalidade](#funcionalidade)
    * [Pre Requisitos](#pre-requisitos)
    * [como usar](#como-usar)
-   * [Tecnologias](#tecnologias)
+   * [Tecnologias](#Tecnologias)
    * [Autor](#autor)
    * [licensa](#licensa)
 <!--te-->
