@@ -2,24 +2,19 @@
 <img src="https://img.shields.io/static/v1?label=log&message=forecastweather&color=7159c1&style=for-the-badge&logo=ghost"/>
 <h1 align="center">Forecast Weather</h1>
 
-# Description
+# Sobre
 
-This project is a application that consumes api of wheather Forecast of the city wich you research, return all details of weather forecast of the day and next days of the week, was builded in order to facilit view of weather forecast wich you interest
+Este projeto é um aplicativo que consome api de previsão do tempo da cidade que você pesquisa, retorna todos os detalhes da previsão do tempo do dia e próximos dias da semana, foi construído de forma a facilitar a visualização da previsão do tempo do seu interesse
 
 Tabela de conteúdos
 =================
 <!--ts-->
-   * [Sobre](#Sobre)
-   * [Tabela de Conteudo](#tabela-de-conteudo)
-   * [Instalação](#instalacao)
-   * [Como usar](#como-usar)
-      * [Pre Requisitos](#pre-requisitos)
-      * [Local files](#local-files)
-      * [Remote files](#remote-files)
-      * [Multiple files](#multiple-files)
-      * [Combo](#combo)
-   * [Tests](#testes)
-   * [Tecnologias](#tecnologias)
+   * [funcionalidade](#funcionalidade)
+   * [Pre Requisitos](#Pré-requisitos)
+   * [como usar](#como-usar)
+   * [Tecnologias](#Tecnologias)
+   * [Autor](#author)
+   * [licença](#licença)
 <!--te-->
 
 <h3>Status</h3>
@@ -27,7 +22,7 @@ Tabela de conteúdos
 	🚧  React Select 🚀 Em construção...  🚧
 </h4>
 
- ### Features
+ ### Funcionalidade
 
 - [x] Busca de previsão por cidade
 - [x] Pagina de detalhes de Previsão por cidade
@@ -46,8 +41,7 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 
 
-## 🎲 Rodando 
-
+## 🎲 como-usar
 ```bash
 # Clone este repositório
 $ git clone <https://github.com/nicholaslima>
