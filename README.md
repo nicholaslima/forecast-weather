@@ -12,21 +12,21 @@ https://rapidapi.com/community/api/open-weather-map
 
 ## Run Project
 
-   # Clone this repo using https://github.com/nicholaslima/forecast-weather/
-   # Move to the appropriate directory: cd previsao.
-   # Run yarn to install dependencies.
-   # Run yarn start to see the example app at http://localhost:3000.
+   #### Clone this repo using https://github.com/nicholaslima/forecast-weather/
+   #### Move to the appropriate directory: cd previsao.
+   #### Run yarn to install dependencies.
+   #### Run yarn start to see the example app at http://localhost:3000.
 
    
  ### features
  
  This app features all the latest tools and practices in web development!
 
-   # React — A library to build user interfaces
-   # CSS — styled-components
-   # Icons - styled components
-   # Api consume - axios
-   # typescript
+   #### React — A library to build user interfaces
+   #### CSS — styled-components
+   #### Icons - styled components
+   #### Api consume - axios
+   #### typescript
 
 
 ## Dependencies
