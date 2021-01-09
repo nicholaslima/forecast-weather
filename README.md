@@ -13,8 +13,8 @@ Tabela de conteúdos
    * [Pre Requisitos](#Pré-requisitos)
    * [como usar](#como-usar)
    * [Tecnologias](#Tecnologias)
-   * [Autor](#author)
-   * [licença](#licença)
+   * [Autor](#Autor)
+   * [licença](#Licença)
 <!--te-->
 
 <h3>Status</h3>
