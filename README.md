@@ -11,7 +11,7 @@ Tabela de conteúdos
 <!--ts-->
    * [funcionalidade](#funcionalidade)
    * [Pre Requisitos](#pre-requisitos)
-   * [como usar](#-como-usar)
+   * [como usar](#--como-usar)
    * [Tecnologias](#-tecnologias)
    * [Autor](#autor)
    * [Licença](#Licenca)
