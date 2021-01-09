@@ -14,7 +14,7 @@ Tabela de conteúdos
    * [como usar](#como-usar)
    * [Tecnologias](#tecnologias)
    * [Autor](#autor)
-   * [licença](#licenca)
+   * [licença](#Licença)
 <!--te-->
 
 <h3>Status</h3>
