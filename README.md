@@ -10,7 +10,7 @@ Tabela de conteúdos
 =================
 <!--ts-->
    * [funcionalidade](#funcionalidade)
-   * [Pre Requisitos](#pre-requisitos)
+   * [Pre Requisitos](#Pre-requisitos)
    * [como usar](#--como-usar)
    * [Tecnologias](#-tecnologias)
    * [Autor](#autor)
@@ -19,7 +19,7 @@ Tabela de conteúdos
 
 <h3>Status</h3>
 <h4 align="center"> 
-	🚧  React Select 🚀 Em construção...  🚧
+ 🚀 Em construção...  🚧
 </h4>
 
  ### Funcionalidade
@@ -32,7 +32,7 @@ Tabela de conteúdos
 
 
 
-### Pré-requisitos
+### Pré requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/). 
