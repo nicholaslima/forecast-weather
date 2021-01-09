@@ -10,11 +10,11 @@ Tabela de conteúdos
 =================
 <!--ts-->
    * [funcionalidade](#funcionalidade)
-   * [Pre Requisitos](#Pré-requisitos)
+   * [Pre Requisitos](#pre-requisitos)
    * [como usar](#como-usar)
-   * [Tecnologias](#Tecnologias)
-   * [Autor](#Autor)
-   * [licença](#Licença)
+   * [Tecnologias](#tecnologias)
+   * [Autor](#autor)
+   * [licença](#licenca)
 <!--te-->
 
 <h3>Status</h3>
@@ -41,7 +41,7 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 
 
-## 🎲 como-usar
+## 🎲 como usar
 ```bash
 # Clone este repositório
 $ git clone <https://github.com/nicholaslima>
