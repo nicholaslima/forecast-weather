@@ -2,7 +2,7 @@
 <img src="https://img.shields.io/static/v1?label=log&message=forecastweather&color=7159c1&style=for-the-badge&logo=ghost"/>
 <h1 align="center">Forecast Weather</h1>
 
-<iframe src="https://giphy.com/embed/6RcaDOZ0FX16NcSgBI" width="480" height="250" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/app-weatherapp-6RcaDOZ0FX16NcSgBI">via GIPHY</a></p>
+<iframe src="https://giphy.com/embed/6RcaDOZ0FX16NcSgBI" width="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/app-weatherapp-6RcaDOZ0FX16NcSgBI">via GIPHY</a></p>
 
 # Sobre
 
