@@ -3,6 +3,7 @@
 <h1 align="center">Forecast Weather</h1>
 
 <img  style="border-radius: 5px"  src="src/assets/imgs/giphy.gif">
+<img  style="border-radius: 5px"  src="src/assets/imgs/giphy2.gif">
 # Sobre
 
 Este projeto é um aplicativo que consome api de previsão do tempo da cidade que você pesquisa, retorna todos os detalhes da previsão do tempo do dia e próximos dias da semana, foi construído de forma a facilitar a visualização da previsão do tempo do seu interesse
