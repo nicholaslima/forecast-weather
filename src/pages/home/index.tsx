@@ -87,12 +87,13 @@ const Home: React.FC = () => {
             await api.get(`/weather?q=${ cidade }`,{
 
                 headers:{ 
-                     "x-rapidapi-key": "e257bac6d4msh21e07a47b5b0f42p16acb9jsn8d167ba3a5d6",
+                     "x-rapidapi-key":`${ process.env.REACT_APP_APIKEY }`,
                  },
 
              }).then(response => {
                 const datas = response.data;
-                console.log(datas);
+                
+
                 const city = captureData(datas);
                 const list = [ ...ForecastList,city];
                 setForecast(list);

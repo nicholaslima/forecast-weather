@@ -1,18 +1,11 @@
-import React,{ useEffect,useState  } from 'react';
+import React,{ useEffect,useState,useCallback  } from 'react';
 import { useRouteMatch ,Link} from 'react-router-dom';
 import { Container } from './style';
 import api from '../../service/api';
-import { weatherCurrentType,cityCurrentType,iconWheather } from '../home';
+import { cityCurrentType,iconWheather } from '../home';
 
 import {
-    FiDroplet,
-    FiSun,
-    FiArrowRight,
-    FiRefreshCw,
     FiArrowLeft,
-    FiCloud,
-    FiCloudOff,
-    FiCloudRain,
 } from 'react-icons/fi';
 
 
@@ -45,7 +38,7 @@ interface cityType{
 }
 
 interface weathersByDate{
-    date: Object;
+    date: string;
     weathers: weatherType[];
 }
 
@@ -59,71 +52,54 @@ const City:React.FC = () => {
     const date = new Date();
     const dateFormated = new Intl.DateTimeFormat('pt-br').format(date);
 
-    useEffect( () => {
-            api.get(`/forecast?q=${params.city}`,{ 
-                headers: { 
-                    "x-rapidapi-key": "e257bac6d4msh21e07a47b5b0f42p16acb9jsn8d167ba3a5d6",
-                }
-            }).then(response => {
-                const datas = response.data;
-                formatDatas(datas);  
-                findCurrentWeather();
-            });
-    },[params.city]);
+    const captWeatherData = useCallback((listWeather: any) => {
+        const list =  listWeather.map( (item: any)  => {
+             const { speed,deg } = item.wind;
+             const  description  = item.weather[0].description;
+             const { humidity,temp,temp_max,temp_min,pressure,sea_level } = item.main;
+             const date = item.dt_txt;
+ 
+             const temp_converted = convertToCelsius(temp);
+             const temp_max_converted = convertToCelsius(temp_max);
+             const temp_min_converted = convertToCelsius(temp_min);
+             const humidityFormated = Intl.NumberFormat('pt-br',{ style: "percent" }).format(humidity / 100);
+             const dateConverted = new Date(date);
+             const hour = dateConverted.getHours();
+             const minutes = dateConverted.getMinutes();
+ 
+             const dateFormated = Intl.DateTimeFormat('pt-br').format(dateConverted);
+             
+                     
+             return { 
+                 hour,
+                 minutes,
+                 dateFormated,
+                 description,
+                 humidity: humidityFormated,
+                 temp: temp_converted,
+                 temp_max: temp_max_converted,
+                 temp_min: temp_min_converted,
+                 pressure,
+                 sea_level,
+                 speed,
+                 deg 
+             }
+         });
+ 
+         return list;
+     },[]);
 
-    
 
-    function formatDatas(datas: any){
+    const formatDatas = useCallback( (datas: any) => {
         const { name,population,country,id }  = datas.city;
         const { lat,lon }  = datas.city.coord;
         const listWeather = datas.list;
 
-        const weathers = listWeather.map( (item: any)  => {
-            const { speed,deg } = item.wind;
-            const  description  = item.weather[0].description;
-            const { humidity,temp,temp_max,temp_min,pressure,sea_level } = item.main;
-            const date = item.dt_txt;
+        const weathers = captWeatherData(listWeather);
 
-            const temp_converted = convertToCelsius(temp);
-            const temp_max_converted = convertToCelsius(temp_max);
-            const temp_min_converted = convertToCelsius(temp_min);
-
-            const dateConverted = new Date(date);
-            const hour = dateConverted.getHours();
-            const minutes = dateConverted.getMinutes();
-
-            const dateFormated = Intl.DateTimeFormat('pt-br').format(dateConverted);
-            
-                    
-            return { 
-                hour,
-                minutes,
-                dateFormated,
-                description,
-                humidity,
-                temp: temp_converted,
-                temp_max: temp_max_converted,
-                temp_min: temp_min_converted,
-                pressure,
-                sea_level,
-                speed,
-                deg 
-            }
-        });
         const populationFormated =  Intl.NumberFormat('pt-br').format(population);
-        
 
-        const city: any  = { 
-            name,
-            population: populationFormated,
-            country,
-            id,
-            lat,
-            lon,
-            weathers  
-        }; 
-
-        const weathersDate = listByDate(city);
+        const weathersDate = listByDate(weathers);
 
         const newcity: cityType = { 
             name,
@@ -138,47 +114,12 @@ const City:React.FC = () => {
         setCityDatas(newcity);
 
         return newcity;
-    }
+    },[captWeatherData]);
 
-    function convertToCelsius(kelvin: number){
-        const celcius = kelvin - 273.15;
-        const formated = new Intl.NumberFormat('pt-br').format(celcius);
-
-        return `${ formated } C°`;
-    }
+    
 
 
-    function listByDate(city: any){
-
-        const dates: string[] = [];
-
-        city.weathers.map( (item: weatherType) => {
-   
-            const date = item.dateFormated;    
-            const exist = dates.includes(date);
-
-            if(exist){
-                return;
-            }
-
-            dates.push(date);
-        })
-
-        const weatherdates: weathersByDate[] = dates.map( date => {
-            const list = city.weathers.filter( (weather: weatherType) => weather.dateFormated === date);
-
-            return { 
-                date: date,
-                weathers: list
-            }
-        })
-        console.log(weatherdates);
-        setWeatherDates(weatherdates);
-
-        return weatherdates;
-    }
-
-    function findCurrentWeather(){
+    const findCurrentWeather = useCallback( () => {
         const listCurrentWeatherString = localStorage.getItem('@ForeCastApp:weather');
 
         if(!listCurrentWeatherString){
@@ -191,8 +132,60 @@ const City:React.FC = () => {
             return item.name ===  params.city;
         });
 
-        console.log(cityCurrentWeather);
         setCurrentWeather(cityCurrentWeather);
+    },[params.city]);
+
+    useEffect( () => {
+            api.get(`/forecast?q=${params.city}`,{ 
+                headers: { 
+                    "x-rapidapi-key":`${ process.env.REACT_APP_APIKEY }`,
+                }
+            }).then(response => {
+                const datas = response.data;
+                formatDatas(datas);  
+                findCurrentWeather();
+            });
+    },[params.city,findCurrentWeather,formatDatas]);
+
+    
+
+    
+
+    function convertToCelsius(kelvin: number){
+        const celcius = kelvin - 273.15;
+        const formated = new Intl.NumberFormat('pt-br').format(celcius);
+
+        return `${ formated } C°`;
+    }
+
+
+    function listByDate(weathers: any){
+
+        const dates: string[] = [];
+
+        weathers.forEach( (item: weatherType) => {
+   
+            const date = item.dateFormated;    
+            const exist = dates.includes(date);
+
+            if(exist){
+                return;
+            }
+
+            dates.push(date);
+        })
+
+        const weatherdates: weathersByDate[] = dates.map( date => {
+            const list = weathers.filter( (weather: weatherType) => weather.dateFormated === date);
+
+            return { 
+                date: date,
+                weathers: list
+            }
+        });
+
+        setWeatherDates(weatherdates);
+        return weatherdates;
     }
 
 
@@ -248,7 +241,7 @@ const City:React.FC = () => {
                        ( <p>não existem previsões para esta cidade</p> ) 
                  : weatherdates.map( (item: weathersByDate) => (
                     <li>
-                        <div className="listWheather">
+                        <div className="listWheather" key={ item.date }>
                             <p>{ item.date }</p>
                             <div className="headerWheaters">
                                     <p className="titleItem">horas</p>
@@ -258,8 +251,8 @@ const City:React.FC = () => {
                                     <p className="titleItem">min</p>
                                     <p className="titleItem">humidade</p>
                             </div>
-                            { item.weathers.map( (weather:weatherType )=> (
-                                <div className="itemWheather">
+                            { item.weathers.map( (weather:weatherType ) => (
+                                <div className="itemWheather" key={ weather.hour }>
                                         <p className="valueItem">{`${ weather.hour } horas`}</p>
                                         <p className="valueItem">{ weather.description }</p>
                                         <p className="valueItem">{ weather.temp }</p>
