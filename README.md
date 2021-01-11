@@ -47,16 +47,17 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 ### 🎲 como usar
 ```bash
 # Clone este repositório
-$ git clone <https://github.com/nicholaslima/forecast-weather/>
+$ git clone https://github.com/nicholaslima/forecast-weather
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd previsão
+$ cd forecast-weather
 
 # configure as variaveis e ambiente .env
-# vá para o link  se cadastre e pegue a chave de acesso da api X-RapidAPI-Key e cole no .env
-$ APIKEY: your key
+# vá para o link  se cadastre e pegue a chave de acesso da api X-RapidAPI-Key e cole no arquivo .env
+# https://rapidapi.com/community/api/open-weather-map
 
-https://rapidapi.com/community/api/open-weather-map
+$ REACT_APP_APIKEY: your key
+
 # Instale as dependências do projeto
 $ yarn 
 
